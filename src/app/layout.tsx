@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils'
 
 import './globals.css'
 
+import { ThemeProvider } from '@/components/providers/theme-provider'
 import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
@@ -17,9 +18,21 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<ClerkProvider>
-			<html lang="pt-BR">
-				<body className={cn('antialiased', font.className)}>
-					{children}
+			<html lang="pt-BR" suppressHydrationWarning>
+				<body
+					className={cn(
+						'bg-white antialiased dark:bg-[#313338]',
+						font.className,
+					)}
+				>
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="dark"
+						enableSystem={false}
+						storageKey="discord-theme"
+					>
+						{children}
+					</ThemeProvider>
 				</body>
 			</html>
 		</ClerkProvider>
