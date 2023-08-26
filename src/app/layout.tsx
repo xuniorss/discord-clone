@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils'
 
 import './globals.css'
 
+import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
 import { ReactNode } from 'react'
@@ -15,8 +16,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
-		<html lang="pt-BR">
-			<body className={cn('antialiased', font.className)}>{children}</body>
-		</html>
+		<ClerkProvider>
+			<html lang="pt-BR">
+				<body className={cn('antialiased', font.className)}>
+					{children}
+				</body>
+			</html>
+		</ClerkProvider>
 	)
 }

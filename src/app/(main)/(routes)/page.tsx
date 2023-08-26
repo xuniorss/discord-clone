@@ -1,3 +1,9 @@
+import { UserButton } from '@clerk/nextjs'
+
 export default function Home() {
-	return <div className="text-3xl">discord clone</div>
+	return (
+		<div>
+			<UserButton afterSignOutUrl="/" />
+		</div>
+	)
 }
