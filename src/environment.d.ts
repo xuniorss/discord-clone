@@ -7,6 +7,8 @@ type MyVariables = {
 	NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: string
 	NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: string
 	DATABASE_URL: string
+	UPLOADTHING_SECRET: string
+	UPLOADTHING_APP_ID: string
 }
 
 declare global {
