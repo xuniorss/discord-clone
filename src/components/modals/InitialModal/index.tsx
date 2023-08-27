@@ -19,28 +19,21 @@ import {
 	FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { NewServerProps, NewServerSchema } from '@/models/servers'
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { z } from 'zod'
-
-const formSchema = z.object({
-	name: z.string().min(1, { message: 'Nome do servidor é obrigatório.' }),
-	imageUrl: z
-		.string()
-		.url()
-		.min(1, { message: 'Imagem do servidor é obrigatória.' }),
-})
-
-type FormProps = z.infer<typeof formSchema>
 
 export const InitialModal = () => {
 	const [isMounted, setIsMounted] = useState(false)
+	const router = useRouter()
 
 	useEffect(() => setIsMounted(true), [])
 
-	const form = useForm<FormProps>({
-		resolver: zodResolver(formSchema),
+	const form = useForm<NewServerProps>({
+		resolver: zodResolver(NewServerSchema),
 		defaultValues: { name: '', imageUrl: '' },
 	})
 
@@ -49,13 +42,20 @@ export const InitialModal = () => {
 		[form.formState.isSubmitting],
 	)
 
-	const onSubmit: SubmitHandler<FormProps> = useCallback(async (values) => {
-		try {
-			console.log(values)
-		} catch (error) {
-			console.error(error)
-		}
-	}, [])
+	const onSubmit: SubmitHandler<NewServerProps> = useCallback(
+		async (values) => {
+			try {
+				await axios.post('/api/servers', values)
+
+				form.reset()
+				router.refresh()
+				window.location.reload()
+			} catch (error) {
+				console.error(error)
+			}
+		},
+		[form, router],
+	)
 
 	if (!isMounted) return null
 
