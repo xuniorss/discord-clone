@@ -59,7 +59,10 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
 					</DropdownMenuItem>
 				)}
 				{isAdmin && (
-					<DropdownMenuItem className="cursor-pointer px-3 py-2 text-sm">
+					<DropdownMenuItem
+						onClick={() => onOpen('members', { server })}
+						className="cursor-pointer px-3 py-2 text-sm"
+					>
 						Gerenciar membros
 						<Users className="ml-auto h-4 w-4" />
 					</DropdownMenuItem>
