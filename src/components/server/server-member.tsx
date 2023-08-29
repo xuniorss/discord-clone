@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import { Member, MemberRole, Profile, Server } from '@prisma/client'
 import { ShieldAlert, ShieldCheck } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { UserAvatar } from '../UserAvatar'
 
 interface ServerMemberProps {
@@ -26,8 +26,15 @@ export const ServerMember = ({ member, server }: ServerMemberProps) => {
 
 	const icon = useMemo(() => roleIconMap[member.role], [member.role])
 
+	const onClick = useCallback(
+		() =>
+			router.push(`/servers/${params?.serverId}/conversations/${member.id}`),
+		[member.id, params?.serverId, router],
+	)
+
 	return (
 		<button
+			onClick={onClick}
 			className={cn(
 				'group mb-1 flex w-full items-center gap-x-2 rounded-md p-2 transition hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50',
 				params?.memberId === member.id && 'bg-zinc-700/20 dark:bg-zinc-700',
