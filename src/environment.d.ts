@@ -9,6 +9,7 @@ type MyVariables = {
 	DATABASE_URL: string
 	UPLOADTHING_SECRET: string
 	UPLOADTHING_APP_ID: string
+	NEXT_PUBLIC_SITE_URL: string
 }
 
 declare global {
