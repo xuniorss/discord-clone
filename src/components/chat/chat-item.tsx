@@ -14,6 +14,7 @@ import {
 	Trash,
 } from 'lucide-react'
 import Image from 'next/image'
+import { useParams, useRouter } from 'next/navigation'
 import qs from 'query-string'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -63,6 +64,13 @@ export const ChatItem = ({
 }: ChatItemProps) => {
 	const [isEditing, setIsEditing] = useState(false)
 	const { onOpen } = useModal()
+	const params = useParams()
+	const router = useRouter()
+
+	const onMemberClick = useCallback(() => {
+		if (member.id === currentMember.id) return
+		router.push(`/servers/${params?.serverId}/conversations/${member.id}`)
+	}, [currentMember.id, member.id, params?.serverId, router])
 
 	useEffect(() => {
 		const handleKeyDown = (event: any) => {
@@ -133,13 +141,19 @@ export const ChatItem = ({
 			)}
 		>
 			<div className="group flex w-full items-start gap-x-2">
-				<div className="cursor-pointer transition hover:drop-shadow-md">
+				<div
+					onClick={onMemberClick}
+					className="cursor-pointer transition hover:drop-shadow-md"
+				>
 					<UserAvatar src={member.profile.imageUrl} />
 				</div>
 				<section className="flex w-full flex-col">
 					<div className="flex items-center gap-x-2">
 						<div className="flex items-center">
-							<p className="cursor-pointer text-sm font-semibold hover:underline">
+							<p
+								onClick={onMemberClick}
+								className="cursor-pointer text-sm font-semibold hover:underline"
+							>
 								{member.profile.name}
 							</p>
 							<ActionTooltip label={member.role}>
