@@ -10,6 +10,7 @@ import { EditServerModal } from '../modals/EditServerModal'
 import { InviteModal } from '../modals/InviteModal'
 import { LeaveServerModal } from '../modals/LeaveServerModal'
 import { MembersModal } from '../modals/MembersModal'
+import { MessageFileModal } from '../modals/MessageFileModal'
 
 export const ModalProvider = () => {
 	const [isMounted, setIsMounted] = useState(false)
@@ -29,6 +30,7 @@ export const ModalProvider = () => {
 			<DeleteServerModal />
 			<DeleteChannelModal />
 			<EditChannelModal />
+			<MessageFileModal />
 		</>
 	)
 }
