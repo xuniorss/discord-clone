@@ -1,5 +1,6 @@
 'use client'
 
+import { useModal } from '@/hooks/use-modal-store'
 import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Member, MemberRole, Profile } from '@prisma/client'
@@ -61,7 +62,7 @@ export const ChatItem = ({
 	socketQuery,
 }: ChatItemProps) => {
 	const [isEditing, setIsEditing] = useState(false)
-	const [isDeleting, setIsDeleting] = useState(false)
+	const { onOpen } = useModal()
 
 	useEffect(() => {
 		const handleKeyDown = (event: any) => {
@@ -249,6 +250,12 @@ export const ChatItem = ({
 					)}
 					<ActionTooltip label="Deletar">
 						<Trash
+							onClick={() =>
+								onOpen('deleteMessage', {
+									apiUrl: `${socketUrl}/${id}`,
+									query: socketQuery,
+								})
+							}
 							aria-label="delete content"
 							className="ml-auto h-4 w-4 cursor-pointer text-zinc-500 transition hover:text-zinc-600 dark:hover:text-zinc-300"
 						/>
