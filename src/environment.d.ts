@@ -10,6 +10,9 @@ type MyVariables = {
 	UPLOADTHING_SECRET: string
 	UPLOADTHING_APP_ID: string
 	NEXT_PUBLIC_SITE_URL: string
+	LIVEKIT_API_KEY: string
+	LIVEKIT_API_SECRET: string
+	NEXT_PUBLIC_LIVEKIT_URL: string
 }
 
 declare global {
